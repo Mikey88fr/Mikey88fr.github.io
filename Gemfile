@@ -8,15 +8,16 @@ group :jekyll_plugins do
   gem "github-pages", "~> 230" # You can use a recent version number here
 end
 
-# If you need to use any *additional* whitelisted plugins not included
-# with the github-pages gem, list them here in the same group:
-# group :jekyll_plugins do
-# gem "jekyll-sitemap"
-# gem "jekyll-feed"
-# gem "jekyll-seo-tag"
-# end
+# Gem recommended for Windows for file watching (improves performance)
+gem "wdm", "~> 0.1" if Gem.win_platform?
 
-# Windows and JRuby often require these.
-platforms do
-  gem "wdm", "~> 0.1" if OS.windows?
-end
+# Sometimes needed on Windows for timezone data (uncomment if you encounter issues)
+# gem "tzinfo-data" if Gem.win_platform?
+
+# If you need to use any *additional* whitelisted plugins not included
+# with the github-pages gem, list them here in the same group above:
+# group :jekyll_plugins do
+#   gem "jekyll-sitemap"
+#   gem "jekyll-feed"
+#   gem "jekyll-seo-tag"
+# end
