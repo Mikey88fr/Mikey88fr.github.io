@@ -5,10 +5,13 @@ source "https://rubygems.org"
 group :jekyll_plugins do
   # Use the github-pages gem to make sure you have the same
   # Jekyll version and plugins as GitHub Pages.
-  gem "github-pages", "~> 230" # You can use a recent version number here
+  gem "github-pages", "~> 230" # Use a recent version number here
 
   # Added to potentially fix LoadError for 'csv'
   gem "csv"
+
+  # Added to fix LoadError for 'webrick' on newer Ruby versions
+  gem "webrick"
 end
 
 # Gem recommended for Windows for file watching (improves performance)
