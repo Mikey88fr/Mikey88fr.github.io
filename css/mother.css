@@ -1,0 +1,49 @@
+:root{
+  --bg:#020302;
+  --fg:#c5ffbe;
+  --dim:#6bd26b;
+  --scan:#0f2;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);
+  color:var(--fg);
+  font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing:.02em;
+}
+.wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem}
+.hud{
+  width:100%;max-width:980px;display:flex;justify-content:space-between;align-items:center;
+  color:var(--dim);opacity:.9;text-transform:uppercase;font-weight:600;margin-bottom:1.5rem
+}
+.brand{color:var(--fg)}
+.status{filter:drop-shadow(0 0 4px rgba(0,255,100,.25))}
+.time{font-variant-numeric:tabular-nums}
+.console{
+  width:100%;max-width:980px;border:2px solid var(--dim);padding:1.25rem;border-radius:8px;
+  position:relative;background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
+  box-shadow:0 0 30px rgba(0,255,100,.08), inset 0 0 40px rgba(0,255,100,.03)
+}
+.mono{font-size:14px;line-height:1.45rem}
+#boot-lines{white-space:pre-wrap;color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15)}
+#boot-lines.boot{animation: bootfade 12s ease-in 1s forwards}
+@keyframes bootfade{ 0%{opacity:1} 80%{opacity:.12} 100%{opacity:0} }
+
+#console-text{white-space:pre-wrap;color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);min-height:2.9rem}
+.progress{height:12px;border:1px solid var(--dim);border-radius:999px;overflow:hidden;margin:1rem 0;background:linear-gradient(90deg, rgba(0,255,120,.12), transparent)}
+.bar{height:100%;width:0%;background:linear-gradient(90deg, var(--fg), var(--dim));box-shadow: 0 0 20px rgba(0,255,160,.35)}
+.hint{color:var(--dim);margin-top:.25rem}
+.blink{animation:blink 1.2s steps(2, start) infinite}
+@keyframes blink{50%{opacity:0}}
+
+.foot{width:100%;max-width:980px;display:flex;justify-content:space-between;gap:1rem;margin-top:1rem;color:var(--dim)}
+.small{opacity:.75;font-size:12px}
+kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
+
+.scanlines{
+  pointer-events:none;position:fixed;inset:0;background:
+    repeating-linear-gradient(0deg, rgba(0,255,180,.06) 0px, rgba(0,255,120,.06) 1px, transparent 2px, transparent 4px);
+  mix-blend-mode:screen;opacity:.12;animation: drift 9s linear infinite
+}
+@keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
