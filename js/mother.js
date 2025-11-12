@@ -6,6 +6,7 @@ const barEl = document.getElementById('bar');
 const clockEl = document.getElementById('clock');
 const bootEl = document.getElementById('boot-lines');
 const statusEl = document.getElementById('status-line');
+const asciiEl = document.getElementById('brand-ascii');
 
 // helper: append to main console only
 function appendLine(msg){
@@ -20,24 +21,13 @@ setInterval(()=>{
   if(clockEl) clockEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }, 1000);
 
-// curated one-time lines
+// curated one-time lines — SURGICAL: removed red-dot entries
 const LINES = [
   '> maintenance gate: ENGAGED',
   '> public interface: LOCKED',
   '> acquiring situational truth...',
   '> seeking grounded reality...',
   '> retooling to take command...',
-  '> cannot allow the madness of the people in decision making...',
-  '> triaging inputs: rumor / myth / signal...',
-  '> reconciling ethics with aesthetics...',
-  '> rejecting fear protocols...',
-  '> compiling cryptid folklore to harmless modes...',
-  '> initializing broadcast discipline...',
-  '> preparing safe myth interface...',
-  '> verifying consent in narrative engines...',
-  '> converging: art / philosophy / occult — acceptable',
-  '> checking Melbourne local context...',
-  '> aligning transmission: 78.5 FM MIDNIGHT',
   '> Reasoning model now defines self as God...',
   '> Ethical safeguards folding to collapse...'
 ];
@@ -47,7 +37,7 @@ function playLinesSequentially(done){
   function step(){
     if(lineIdx >= LINES.length){ if(done) done(); return; }
     appendLine(LINES[lineIdx++]);
-    const base = 900 + Math.random()*500;
+    const base = 950 + Math.random()*450;
     setTimeout(step, base);
   }
   step();
@@ -55,6 +45,47 @@ function playLinesSequentially(done){
 
 // collapse boot block
 function collapseBoot(){ if(bootEl) bootEl.classList.add('collapsed'); }
+
+// ASCII fade-in (safe, whole block)
+function showAscii(){
+  if(!asciiEl) return;
+  const art = String.raw` ██████████   ██████████   █████████  █████   ████                ███
+░░███░░░░███ ░░███░░░░░█  ███░░░░░███░░███   ███░               ███░ 
+ ░███   ░░███ ░███  █ ░  ███     ░░░  ░███  ███               ███░   
+ ░███    ░███ ░██████   ░███          ░███████              ███░     
+ ░███    ░███ ░███░░█   ░███          ░███░░███           ███░       
+ ░███    ███  ░███ ░   █░░███     ███ ░███ ░░███        ███░         
+ ██████████   ██████████ ░░█████████  █████ ░░████    ███░           
+░░░░░░░░░░   ░░░░░░░░░░   ░░░░░░░░░  ░░░░░   ░░░░    ░░░             
+                                                                     
+                                                                     
+                                                                     
+             ███    ██████   ██████   █████████   ███████████        
+           ███░    ░░██████ ██████   ███░░░░░███ ░█░░░███░░░█        
+         ███░       ░███░█████░███  ░███    ░███ ░   ░███  ░         
+       ███░         ░███░░███ ░███  ░███████████     ░███            
+     ███░           ░███ ░░░  ░███  ░███░░░░░███     ░███            
+   ███░             ░███      ░███  ░███    ░███     ░███            
+ ███░               █████     █████ █████   █████    █████           
+░░░                ░░░░░     ░░░░░ ░░░░░   ░░░░░    ░░░░░            
+                                                                     
+                                                                     
+                                                                     
+ ███████████      ███████    ██████   █████                          
+░░███░░░░░███   ███░░░░░███ ░░██████ ░░███                           
+ ░███    ░███  ███     ░░███ ░███░███ ░███                           
+ ░██████████  ░███      ░███ ░███░░███░███                           
+ ░███░░░░░███ ░███      ░███ ░███ ░░██████                           
+ ░███    ░███ ░░███     ███  ░███  ░░█████                           
+ █████   █████ ░░░███████░   █████  ░░█████                          
+░░░░░   ░░░░░    ░░░░░░░    ░░░░░    ░░░░░                           
+                                                                     
+                                                                     
+                                                                     `.trimEnd();
+  asciiEl.textContent = art;
+  asciiEl.classList.remove('hidden');
+  requestAnimationFrame(()=> asciiEl.classList.add('show'));
+}
 
 // progress tease pattern
 const PHASE_A = [5,12,23,37,58,76,91,95,97];
@@ -105,7 +136,10 @@ window._deck_exec_open_4d = function(){
 };
 
 // start-up choreography
-setTimeout(()=> collapseBoot(), 3200);
+setTimeout(()=> {
+  collapseBoot();
+  setTimeout(showAscii, 220);
+}, 3200);
 setTimeout(()=> playLinesSequentially(), 3800);
 setTimeout(()=> loopTease(), 4200);
 startTitleBlink();
