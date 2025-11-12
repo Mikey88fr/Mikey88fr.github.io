@@ -2,7 +2,7 @@
   --bg:#020302;
   --fg:#c5ffbe;
   --dim:#6bd26b;
-  --scan:#0f2;
+  --warn:#DC143C;
 }
 *{box-sizing:border-box}
 html,body{height:100%}
@@ -12,6 +12,7 @@ body{
   font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   letter-spacing:.02em;
 }
+.hidden{display:none}
 .wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem}
 .hud{
   width:100%;max-width:980px;display:flex;justify-content:space-between;align-items:center;
@@ -25,12 +26,10 @@ body{
   position:relative;background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
   box-shadow:0 0 30px rgba(0,255,100,.08), inset 0 0 40px rgba(0,255,100,.03)
 }
-.mono{font-size:14px;line-height:1.45rem}
-#boot-lines{white-space:pre-wrap;color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15)}
-#boot-lines.boot{animation: bootfade 12s ease-in 1s forwards}
-@keyframes bootfade{ 0%{opacity:1} 80%{opacity:.12} 100%{opacity:0} }
-
-#console-text{white-space:pre-wrap;color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);min-height:2.9rem}
+.mono{font-size:14px;line-height:1.45rem;white-space:pre-wrap}
+#boot-lines{color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);overflow:hidden;max-height:9rem;transition:max-height .6s ease, opacity .6s ease, margin .6s ease, padding .6s ease}
+#boot-lines.collapsed{max-height:0;opacity:0;margin:0;padding:0}
+#console-text{color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);min-height:2.9rem}
 .progress{height:12px;border:1px solid var(--dim);border-radius:999px;overflow:hidden;margin:1rem 0;background:linear-gradient(90deg, rgba(0,255,120,.12), transparent)}
 .bar{height:100%;width:0%;background:linear-gradient(90deg, var(--fg), var(--dim));box-shadow: 0 0 20px rgba(0,255,160,.35)}
 .hint{color:var(--dim);margin-top:.25rem}
@@ -47,3 +46,12 @@ kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
   mix-blend-mode:screen;opacity:.12;animation: drift 9s linear infinite
 }
 @keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+
+/* Footer warning badge */
+.warn{
+  color:var(--warn);
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
+}
