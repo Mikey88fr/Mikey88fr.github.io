@@ -55,18 +55,3 @@ kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
   text-transform:uppercase;
   filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
 }
-
-/* ASCII brand block */
-.ascii{
-  color:var(--dim);
-  opacity:0;
-  margin:0 0 .5rem 0;
-  text-shadow:0 0 6px rgba(0,255,160,.15);
-  white-space:pre;
-  transition:opacity .6s ease, transform .6s ease;
-  transform: translateY(-6px);
-}
-.ascii.show{ opacity:1; transform: translateY(0); }
-@media (max-width: 560px){
-  .ascii{ font-size:12px; line-height:1.1rem; }
-}
