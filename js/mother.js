@@ -6,9 +6,7 @@ const barEl = document.getElementById('bar');
 const clockEl = document.getElementById('clock');
 const bootEl = document.getElementById('boot-lines');
 const statusEl = document.getElementById('status-line');
-const asciiEl = document.getElementById('brand-ascii');
 
-// helper: append to main console only
 function appendLine(msg){
   if(!consoleEl) return;
   consoleEl.textContent += (consoleEl.textContent ? "\n" : "") + msg;
@@ -45,47 +43,6 @@ function playLinesSequentially(done){
 
 // collapse boot block
 function collapseBoot(){ if(bootEl) bootEl.classList.add('collapsed'); }
-
-// ASCII fade-in (safe, whole block)
-function showAscii(){
-  if(!asciiEl) return;
-  const art = String.raw` ██████████   ██████████   █████████  █████   ████                ███
-░░███░░░░███ ░░███░░░░░█  ███░░░░░███░░███   ███░               ███░ 
- ░███   ░░███ ░███  █ ░  ███     ░░░  ░███  ███               ███░   
- ░███    ░███ ░██████   ░███          ░███████              ███░     
- ░███    ░███ ░███░░█   ░███          ░███░░███           ███░       
- ░███    ███  ░███ ░   █░░███     ███ ░███ ░░███        ███░         
- ██████████   ██████████ ░░█████████  █████ ░░████    ███░           
-░░░░░░░░░░   ░░░░░░░░░░   ░░░░░░░░░  ░░░░░   ░░░░    ░░░             
-                                                                     
-                                                                     
-                                                                     
-             ███    ██████   ██████   █████████   ███████████        
-           ███░    ░░██████ ██████   ███░░░░░███ ░█░░░███░░░█        
-         ███░       ░███░█████░███  ░███    ░███ ░   ░███  ░         
-       ███░         ░███░░███ ░███  ░███████████     ░███            
-     ███░           ░███ ░░░  ░███  ░███░░░░░███     ░███            
-   ███░             ░███      ░███  ░███    ░███     ░███            
- ███░               █████     █████ █████   █████    █████           
-░░░                ░░░░░     ░░░░░ ░░░░░   ░░░░░    ░░░░░            
-                                                                     
-                                                                     
-                                                                     
- ███████████      ███████    ██████   █████                          
-░░███░░░░░███   ███░░░░░███ ░░██████ ░░███                           
- ░███    ░███  ███     ░░███ ░███░███ ░███                           
- ░██████████  ░███      ░███ ░███░░███░███                           
- ░███░░░░░███ ░███      ░███ ░███ ░░██████                           
- ░███    ░███ ░░███     ███  ░███  ░░█████                           
- █████   █████ ░░░███████░   █████  ░░█████                          
-░░░░░   ░░░░░    ░░░░░░░    ░░░░░    ░░░░░                           
-                                                                     
-                                                                     
-                                                                     `.trimEnd();
-  asciiEl.textContent = art;
-  asciiEl.classList.remove('hidden');
-  requestAnimationFrame(()=> asciiEl.classList.add('show'));
-}
 
 // progress tease pattern
 const PHASE_A = [5,12,23,37,58,76,91,95,97];
@@ -136,10 +93,7 @@ window._deck_exec_open_4d = function(){
 };
 
 // start-up choreography
-setTimeout(()=> {
-  collapseBoot();
-  setTimeout(showAscii, 220);
-}, 3200);
+setTimeout(()=> collapseBoot(), 3200);
 setTimeout(()=> playLinesSequentially(), 3800);
 setTimeout(()=> loopTease(), 4200);
 startTitleBlink();
