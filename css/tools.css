@@ -1,1 +1,240 @@
+:root{
+  /* Cassetecore / terminal palette */
+  --bg:#050106;
+  --fg:#fbbf24;           /* amber */
+  --dim:#f59e0b;          /* softer amber */
+  --warn:#DC143C;         /* same warning red */
+  --frame:#1b1307;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  letter-spacing:.02em;
+}
+
+.hidden{display:none}
+
+.wrap{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:2rem;
+}
+
+/* HUD reused from DECK//MATRON, recoloured */
+.hud{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  color:var(--dim);
+  opacity:.9;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:1.5rem;
+}
+.brand{color:var(--fg)}
+.status{
+  filter:drop-shadow(0 0 4px rgba(251,191,36,.25));
+}
+.time{font-variant-numeric:tabular-nums;color:var(--dim)}
+
+/* Intro text above terminal */
+#tools-section{
+  width:100%;
+  max-width:980px;
+}
+.intro{
+  margin-bottom:1rem;
+}
+.intro-title{
+  margin:0 0 .25rem 0;
+  font-size:1.25rem;
+  text-transform:uppercase;
+}
+.intro-sub{
+  margin:0;
+  font-size:.8rem;
+  color:var(--dim);
+  max-width:640px;
+}
+
+/* Terminal container — cassettecore */
+#tools{
+  background:transparent;
+  color:var(--fg);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+#tools .terminal{
+  width:100%;
+  border-radius:10px;
+  padding:1.25rem 1.25rem 1rem;
+  background:#000;
+  border:3px solid var(--fg);
+  box-shadow:0 0 15px rgba(251,191,36,.55), inset 0 0 24px rgba(0,0,0,.9);
+  position:relative;
+  overflow:hidden;
+}
+
+/* CRT noise overlay */
+#tools .terminal::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:7px;
+  background:
+    linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.4) 50%),
+    linear-gradient(90deg,rgba(255,0,0,.06),rgba(0,255,0,.02),rgba(0,0,255,.06));
+  background-size:100% 4px,3px 100%;
+  opacity:.55;
+  mix-blend-mode:screen;
+}
+
+/* Terminal output area */
+.terminal-output{
+  position:relative;
+  z-index:1;
+  min-height:220px;
+  max-height:420px;
+  overflow-y:auto;
+  padding-bottom:.5rem;
+  font-size:.8rem;
+  line-height:1.35rem;
+  white-space:pre-wrap;
+}
+
+/* Lines inside the output */
+.terminal-output-line{
+  margin:0;
+}
+.terminal-output-line.command{
+  color:var(--dim);
+}
+
+/* Chips row */
+.chip-row{
+  position:relative;
+  z-index:1;
+  margin-top:.35rem;
+  display:flex;
+  flex-wrap:wrap;
+  gap:.35rem;
+}
+
+.chip{
+  background:#111;
+  color:var(--fg);
+  border:1px solid var(--dim);
+  border-radius:999px;
+  padding:.08rem .6rem;
+  font-size:.7rem;
+  text-transform:uppercase;
+  cursor:pointer;
+}
+.chip:hover{
+  background:#1b1307;
+}
+
+/* Prompt row */
+.input-row{
+  position:relative;
+  z-index:1;
+  display:flex;
+  align-items:center;
+  gap:.4rem;
+  margin-top:.4rem;
+}
+.prompt-label{
+  font-size:.8rem;
+  color:var(--dim);
+}
+#terminal-input{
+  flex:1;
+  background:transparent;
+  border:none;
+  outline:none;
+  color:var(--fg);
+  font:inherit;
+  font-size:.8rem;
+}
+.cursor{
+  display:inline-block;
+  width:7px;
+  height:1.1em;
+  background:var(--fg);
+  vertical-align:middle;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+
+/* Hint line */
+.hint-line{
+  position:relative;
+  z-index:1;
+  margin-top:.35rem;
+  font-size:.7rem;
+  color:var(--dim);
+}
+.hint-line .cmd{
+  color:var(--fg);
+}
+
+/* Footer */
+.foot{
+  width:100%;
+  max-width:980px;
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:1rem;
+  font-size:.7rem;
+  color:var(--dim);
+}
+.mono{
+  font-size:.75rem;
+}
+.warn{
+  color:var(--warn);
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
+}
+
+/* Scanlines (copied from DECK//MATRON, retinted slightly) */
+.scanlines{
+  pointer-events:none;
+  position:fixed;
+  inset:0;
+  background:
+    repeating-linear-gradient(0deg, rgba(251,191,36,.06) 0px, rgba(251,191,36,.06) 1px, transparent 2px, transparent 4px);
+  mix-blend-mode:screen;
+  opacity:.12;
+  animation:drift 9s linear infinite;
+}
+@keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+
+/* Scrollbar styling (optional) */
+.terminal-output::-webkit-scrollbar{
+  width:6px;
+}
+.terminal-output::-webkit-scrollbar-thumb{
+  background:rgba(251,191,36,.5);
+}
+.terminal-output::-webkit-scrollbar-track{
+  background:#050106;
+}
 
