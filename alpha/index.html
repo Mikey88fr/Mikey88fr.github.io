@@ -1,1 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DECK//MATRON AUX — Esoteric Tools (Alpha)</title>
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="theme-color" content="#050106"/>
+
+  <!-- Same font family as DECK//MATRON for continuity -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/tools.css"/>
+</head>
+<body>
+  <div class="scanlines"></div>
+
+  <main class="wrap">
+    <header class="hud">
+      <div class="brand">DECK//MATRON AUX</div>
+      <div class="status" id="status-line">TOOLS TERMINAL • BOOTING</div>
+      <div class="time" id="clock">--:--:--</div>
+    </header>
+
+    <!-- Tools section (currently the only section, and therefore last in scroll) -->
+    <section id="tools-section" aria-label="Esoteric Tools">
+      <div class="intro">
+        <h1 class="intro-title">Esoteric Tools — Alpha Console</h1>
+        <p class="intro-sub">
+          A small collection of real, open-source safety tools for moderators and at-risk users,
+          built and maintained by one human, not a company.
+        </p>
+      </div>
+
+      <section id="tools" aria-label="Esoteric Tools terminal">
+        <div class="terminal" role="region" aria-live="polite">
+          <div id="terminal-output" class="terminal-output" role="log"></div>
+
+          <!-- Chips = command shortcuts (same as typing inside the console) -->
+          <div id="chip-row" class="chip-row hidden" aria-hidden="false">
+            <button class="chip" data-command="HELP">[HELP]</button>
+            <button class="chip" data-command="LIST">[LIST]</button>
+            <button class="chip" data-command="SHOW vox_populi">[VOX]</button>
+            <button class="chip" data-command="SHOW synthcache">[SYNTH]</button>
+            <button class="chip" data-command="SHOW vouch">[VOUCH]</button>
+          </div>
+
+          <div id="input-row" class="input-row hidden">
+            <span class="prompt-label" id="prompt-label">guest@esoteric:~$</span>
+            <input
+              id="terminal-input"
+              type="text"
+              autocomplete="off"
+              spellcheck="false"
+              aria-label="Esoteric tools console input"
+            />
+            <span class="cursor" aria-hidden="true"></span>
+          </div>
+
+          <p id="hint-line" class="hint-line hidden">
+            Type <span class="cmd">HELP</span> or <span class="cmd">LIST</span> to see available tools.
+          </p>
+        </div>
+      </section>
+
+      <footer class="foot mono">
+        <div>System BIOS v4.0.1 — Tools Mode (Alpha)</div>
+        <div class="warn">
+          Experimental only — not ready for non-technical users
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script src="../js/esoteric_tools_index.js"></script>
+  <script src="../js/esoteric_tools_terminal.js"></script>
+</body>
+</html>
 
