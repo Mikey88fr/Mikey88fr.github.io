@@ -22,9 +22,32 @@ body{
 .status{filter:drop-shadow(0 0 4px rgba(0,255,100,.25))}
 .time{font-variant-numeric:tabular-nums}
 .console{
-  width:100%;max-width:980px;border:2px solid var(--dim);padding:1.25rem;border-radius:8px;
-  position:relative;background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
-  box-shadow:0 0 30px rgba(0,255,100,.08), inset 0 0 40px rgba(0,255,100,.03)
+  width:100%;
+  max-width:980px;
+  border:2px solid var(--dim);
+  padding:1.25rem;
+  border-radius:8px;
+  position:relative;
+  overflow:hidden; /* so CRT overlay stays inside */
+  background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
+  box-shadow:0 0 30px rgba(0,255,100,.08), inset 0 0 40px rgba(0,255,100,.03);
+}
+
+/* NEW: CRT static overlay on the console itself */
+.console::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  border-radius:6px;
+  background:
+    /* dark banding */
+    linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.45) 50%),
+    /* subtle RGB split */
+    linear-gradient(90deg,rgba(0,255,160,.09),rgba(0,255,80,.04),rgba(0,200,120,.09));
+  background-size:100% 4px, 3px 100%;
+  opacity:.55;
+  mix-blend-mode:screen;
 }
 .mono{font-size:14px;line-height:1.45rem;white-space:pre-wrap}
 #boot-lines{color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);overflow:hidden;max-height:9rem;transition:max-height .6s ease, opacity .6s ease, margin .6s ease, padding .6s ease}
