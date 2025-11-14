@@ -41,11 +41,27 @@ body{
 kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
 
 .scanlines{
-  pointer-events:none;position:fixed;inset:0;background:
-    repeating-linear-gradient(0deg, rgba(0,255,180,.06) 0px, rgba(0,255,120,.06) 1px, transparent 2px, transparent 4px);
-  mix-blend-mode:screen;opacity:.12;animation: drift 9s linear infinite
+  pointer-events:none;
+  position:fixed;
+  inset:0;
+  z-index:999; /* ensure overlay is above main content */
+  background:
+    /* horizontal scanlines */
+    repeating-linear-gradient(
+      0deg,
+      rgba(0,255,180,.10) 0px,
+      rgba(0,255,120,.10) 1px,
+      transparent 2px,
+      transparent 4px
+    );
+  mix-blend-mode:screen;
+  opacity:.22;
+  animation: drift 9s linear infinite;
 }
-@keyframes drift{0%{transform:translateY(0)}100%{transform:translateY(4px)}}
+@keyframes drift{
+  0%{transform:translateY(0)}
+  100%{transform:translateY(4px)}
+}
 
 /* Footer warning badge */
 .warn{
