@@ -1,66 +1,3 @@
-:root{
-  --bg:#020302;
-  --fg:#c5ffbe;
-  --dim:#6bd26b;
-  --warn:#DC143C;
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0;background:var(--bg);
-  color:var(--fg);
-  font-family:'IBM Plex Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-  letter-spacing:.02em;
-}
-.hidden{display:none}
-.wrap{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem}
-.hud{
-  width:100%;max-width:980px;display:flex;justify-content:space-between;align-items:center;
-  color:var(--dim);opacity:.9;text-transform:uppercase;font-weight:600;margin-bottom:1.5rem
-}
-.brand{color:var(--fg)}
-.status{filter:drop-shadow(0 0 4px rgba(0,255,100,.25))}
-.time{font-variant-numeric:tabular-nums}
-.console{
-  width:100%;
-  max-width:980px;
-  border:2px solid var(--dim);
-  padding:1.25rem;
-  border-radius:8px;
-  position:relative;
-  background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
-  box-shadow:0 0 30px rgba(0,255,100,.18), inset 0 0 40px rgba(0,255,100,.08);
-  overflow:hidden;
-}
-
-/* NEW: CRT banding + RGB shimmer inside the console */
-.console::before{
-  content:'';
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  border-radius:6px;
-  background:
-    linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.55) 50%),
-    linear-gradient(90deg,rgba(0,255,160,.10),rgba(0,255,80,.03),rgba(0,200,120,.10));
-  background-size:100% 4px,3px 100%;
-  opacity:.7;
-  mix-blend-mode:screen;
-}
-.mono{font-size:14px;line-height:1.45rem;white-space:pre-wrap}
-#boot-lines{color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);overflow:hidden;max-height:9rem;transition:max-height .6s ease, opacity .6s ease, margin .6s ease, padding .6s ease}
-#boot-lines.collapsed{max-height:0;opacity:0;margin:0;padding:0}
-#console-text{color:var(--fg);text-shadow:0 0 6px rgba(0,255,160,.15);min-height:2.9rem}
-.progress{height:12px;border:1px solid var(--dim);border-radius:999px;overflow:hidden;margin:1rem 0;background:linear-gradient(90deg, rgba(0,255,120,.12), transparent)}
-.bar{height:100%;width:0%;background:linear-gradient(90deg, var(--fg), var(--dim));box-shadow: 0 0 20px rgba(0,255,160,.35)}
-.hint{color:var(--dim);margin-top:.25rem}
-.blink{animation:blink 1.2s steps(2, start) infinite}
-@keyframes blink{50%{opacity:0}}
-
-.foot{width:100%;max-width:980px;display:flex;justify-content:space-between;gap:1rem;margin-top:1rem;color:var(--dim)}
-.small{opacity:.75;font-size:12px}
-kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
-
 .scanlines{
   pointer-events:none;
   position:fixed;
@@ -69,38 +6,40 @@ kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
   background:
     repeating-linear-gradient(
       0deg,
-      rgba(0,255,160,.22) 0px,
-      rgba(0,255,100,.18) 2px,
+      rgba(0,255,160,.16) 0px,
+      rgba(0,255,100,.10) 2px,
       transparent 3px,
       transparent 5px
     );
   mix-blend-mode:screen;
-  opacity:.30;
+  /* darker overall, so it’s not a veil over the whole page */
+  opacity:.18;
+  /* three layers of motion: slow scroll, irregular brightness, rare jitter */
   animation:
-    drift 9s linear infinite,
-    scanFlicker 2.7s infinite;
+    scanScroll 7.5s linear infinite,
+    scanFlicker 2.7s infinite,
+    scanJitter 11s steps(1,end) infinite;
 }
 
-@keyframes drift{
-  0%{transform:translateY(0)}
-  100%{transform:translateY(4px)}
+/* slow vertical crawl of the lines */
+@keyframes scanScroll{
+  0%{background-position-y:0;}
+  100%{background-position-y:4px;}
 }
 
 /* gentle irregular brightness wobble */
 @keyframes scanFlicker{
-  0%, 12%, 100% { opacity:.30; }
-  6%           { opacity:.34; }
-  50%          { opacity:.32; }
-  52%          { opacity:.27; }
+  0%, 12%, 100% { opacity:.18; }
+  6%           { opacity:.23; }
+  50%          { opacity:.20; }
+  52%          { opacity:.15; }
 }
 
-
-
-/* Footer warning badge */
-.warn{
-  color:var(--warn);
-  font-weight:600;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-  filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
+/* occasional little “kick” like slightly loose cabling */
+@keyframes scanJitter{
+  0%, 82%, 100% { transform:translateY(0); }
+  84%          { transform:translateY(-1px); }
+  88%          { transform:translateY(2px); }
+  92%          { transform:translateY(-2px); }
+  96%          { transform:translateY(1px); }
 }
