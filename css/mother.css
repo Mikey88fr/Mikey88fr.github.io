@@ -65,23 +65,35 @@ kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
   pointer-events:none;
   position:fixed;
   inset:0;
-  z-index:999; /* make sure it's over everything */
+  z-index:999;
   background:
     repeating-linear-gradient(
       0deg,
       rgba(0,255,160,.22) 0px,
       rgba(0,255,100,.18) 2px,
-      rgba(0,0,0,0) 3px,
-      rgba(0,0,0,0) 5px
+      transparent 3px,
+      transparent 5px
     );
   mix-blend-mode:screen;
-  opacity:.35;
-  animation: drift 9s linear infinite;
+  opacity:.30;
+  animation:
+    drift 9s linear infinite,
+    scanFlicker 2.7s infinite;
 }
+
 @keyframes drift{
   0%{transform:translateY(0)}
   100%{transform:translateY(4px)}
 }
+
+/* gentle irregular brightness wobble */
+@keyframes scanFlicker{
+  0%, 12%, 100% { opacity:.30; }
+  6%           { opacity:.34; }
+  50%          { opacity:.32; }
+  52%          { opacity:.27; }
+}
+
 
 
 /* Footer warning badge */
