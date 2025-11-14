@@ -28,12 +28,12 @@ body{
   padding:1.25rem;
   border-radius:8px;
   position:relative;
-  overflow:hidden; /* so CRT overlay stays inside */
   background:radial-gradient(ellipse at 50% 0%, rgba(0,255,120,.06), rgba(0,0,0,.0));
-  box-shadow:0 0 30px rgba(0,255,100,.08), inset 0 0 40px rgba(0,255,100,.03);
+  box-shadow:0 0 30px rgba(0,255,100,.18), inset 0 0 40px rgba(0,255,100,.08);
+  overflow:hidden;
 }
 
-/* NEW: CRT static overlay on the console itself */
+/* NEW: CRT banding + RGB shimmer inside the console */
 .console::before{
   content:'';
   position:absolute;
@@ -41,12 +41,10 @@ body{
   pointer-events:none;
   border-radius:6px;
   background:
-    /* dark banding */
-    linear-gradient(rgba(0,0,0,0) 50%, rgba(0,0,0,.45) 50%),
-    /* subtle RGB split */
-    linear-gradient(90deg,rgba(0,255,160,.09),rgba(0,255,80,.04),rgba(0,200,120,.09));
-  background-size:100% 4px, 3px 100%;
-  opacity:.55;
+    linear-gradient(rgba(18,16,16,0) 50%,rgba(0,0,0,.55) 50%),
+    linear-gradient(90deg,rgba(0,255,160,.10),rgba(0,255,80,.03),rgba(0,200,120,.10));
+  background-size:100% 4px,3px 100%;
+  opacity:.7;
   mix-blend-mode:screen;
 }
 .mono{font-size:14px;line-height:1.45rem;white-space:pre-wrap}
