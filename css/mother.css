@@ -75,39 +75,37 @@ kbd{border:1px solid var(--dim);padding:.1rem .3rem;border-radius:3px}
       transparent 5px
     );
   mix-blend-mode:screen;
-  /* darker overall, so it’s not a veil over the whole page */
-  opacity:.18;
-  /* three layers of motion: slow scroll, irregular brightness, rare jitter */
+  /* +~40% visibility so you can actually see it */
+  opacity:.26;
+  /* faster scroll + slightly more fidgety, but still low-key */
   animation:
-    scanScroll 7.5s linear infinite,
-    scanFlicker 2.7s infinite,
-    scanJitter 11s steps(1,end) infinite;
+    scanScroll 5s linear infinite,
+    scanFlicker 2.3s infinite,
+    scanJitter 9s steps(1,end) infinite;
 }
 
-/* slow vertical crawl of the lines */
+/* slow vertical crawl, more distance so motion is readable */
 @keyframes scanScroll{
-  0%{background-position-y:0;}
-  100%{background-position-y:4px;}
+  0%   { background-position-y:0; }
+  100% { background-position-y:12px; }
 }
 
-/* gentle irregular brightness wobble */
+/* brightness wobble turned up a notch */
 @keyframes scanFlicker{
-  0%, 12%, 100% { opacity:.18; }
-  6%           { opacity:.23; }
-  50%          { opacity:.20; }
-  52%          { opacity:.15; }
+  0%, 12%, 100% { opacity:.24; }
+  6%           { opacity:.30; }
+  50%          { opacity:.26; }
+  52%          { opacity:.18; }
 }
 
-/* occasional little “kick” like slightly loose cabling */
+/* jitter you can actually notice, but not “earthquake” */
 @keyframes scanJitter{
   0%, 82%, 100% { transform:translateY(0); }
-  84%          { transform:translateY(-1px); }
-  88%          { transform:translateY(2px); }
-  92%          { transform:translateY(-2px); }
+  84%          { transform:translateY(-2px); }
+  88%          { transform:translateY(3px); }
+  92%          { transform:translateY(-3px); }
   96%          { transform:translateY(1px); }
 }
-
-
 
 /* Footer warning badge */
 .warn{
