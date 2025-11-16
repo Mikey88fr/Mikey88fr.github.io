@@ -96,4 +96,4 @@ window._deck_exec_open_4d = function(){
 setTimeout(()=> collapseBoot(), 3200);
 setTimeout(()=> playLinesSequentially(), 3800);
 setTimeout(()=> loopTease(), 4200);
-startTitleBlink();
+//startTitleBlink();
