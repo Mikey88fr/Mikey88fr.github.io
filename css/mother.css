@@ -276,4 +276,15 @@ kbd{
   letter-spacing:.06em;
   text-transform:uppercase;
   filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
+  animation:warnPulse 3.4s ease-in-out infinite;
+}
+@keyframes warnPulse{
+  0%,100%{
+    opacity:.7;
+    filter:drop-shadow(0 0 4px rgba(220,20,60,.25));
+  }
+  50%{
+    opacity:1;
+    filter:drop-shadow(0 0 10px rgba(220,20,60,.7));
+  }
 }
