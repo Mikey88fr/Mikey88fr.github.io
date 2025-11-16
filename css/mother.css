@@ -136,15 +136,20 @@ body{
   box-shadow:0 0 20px rgba(0,255,160,.35);
 }
 
-.hint{
-  color:var(--dim);
-  margin-top:.25rem;
-}
+.hint{color:var(--dim);margin-top:.25rem}
+.blink{animation:blink 1.2s steps(2, start) infinite}
 
-.blink{
+.blink-dot{
+  display:inline-block;
+  width:.55em;
+  height:.55em;
+  margin:0 .25rem;
+  border-radius:50%;
+  background:var(--dim);
+  box-shadow:0 0 6px rgba(0,255,100,.6);
+  vertical-align:middle;
   animation:blink 1.2s steps(2, start) infinite;
 }
-
 @keyframes blink{
   50%{opacity:0}
 }
