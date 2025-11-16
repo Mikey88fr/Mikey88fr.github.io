@@ -6,6 +6,7 @@ const barEl = document.getElementById('bar');
 const clockEl = document.getElementById('clock');
 const bootEl = document.getElementById('boot-lines');
 const statusEl = document.getElementById('status-line');
+const logoEl = document.getElementById('deckmatron-logo');
 
 function appendLine(msg){
   if(!consoleEl) return;
@@ -43,6 +44,11 @@ function playLinesSequentially(done){
 
 // collapse boot block
 function collapseBoot(){ if(bootEl) bootEl.classList.add('collapsed'); }
+
+// trigger logo animation
+function triggerLogoAnimation(){
+  if(logoEl) logoEl.classList.add('deck-logo-active');
+}
 
 // progress tease pattern
 const PHASE_A = [5,12,23,37,58,76,91,95,97];
@@ -92,8 +98,11 @@ window._deck_exec_open_4d = function(){
   }, 900);
 };
 
-// start-up choreography
+// ================================================
+// START-UP CHOREOGRAPHY WITH LOGO ANIMATION
+// ================================================
 setTimeout(()=> collapseBoot(), 3200);
-setTimeout(()=> playLinesSequentially(), 3800);
-setTimeout(()=> loopTease(), 4200);
-//startTitleBlink();
+setTimeout(()=> triggerLogoAnimation(), 3400);  // <-- NEW: trigger logo 200ms after boot collapse
+setTimeout(()=> playLinesSequentially(), 5200);  // <-- ADJUSTED: delayed to let logo finish (~1.8s animation)
+setTimeout(()=> loopTease(), 5600);              // <-- ADJUSTED: matches new timing
+// startTitleBlink(); // uncomment if you want the blinking title effect
