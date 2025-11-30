@@ -108,7 +108,7 @@ function stopTitleBlink() {
 }
 
 // ----------------- DEVTOOLS RELEASE HOOK -----------------
-// run in console: _deck_exec_open_4d()
+// run in browser console: _deck_exec_open_4d()
 window._deck_exec_open_4d = function () {
   released = true;
   setProgress(99);
