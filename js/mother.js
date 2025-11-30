@@ -341,6 +341,30 @@ function collapseBoot() {
 }
 
 // ═══════════════════════════════════════════════════════════════
+// STATIC GLITCH EFFECT (Added for creative flair)
+// ═══════════════════════════════════════════════════════════════
+function scheduleGlitch() {
+  const tear = document.getElementById("static-tear");
+  if (!tear) return;
+
+  // Remove class to reset animation
+  tear.classList.remove("glitching");
+  
+  // Force reflow
+  void tear.offsetWidth;
+
+  // Add class to start animation
+  tear.classList.add("glitching");
+
+  // Randomize next glitch (between 5s and 15s)
+  // Sometimes very fast (400ms) to simulate "breaking"
+  const isBurst = Math.random() > 0.8;
+  const delay = isBurst ? 400 : (Math.random() * 10000 + 5000);
+  
+  setTimeout(scheduleGlitch, delay);
+}
+
+// ═══════════════════════════════════════════════════════════════
 // STARTUP CHOREOGRAPHY
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener("DOMContentLoaded", () => {
@@ -365,4 +389,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   // Start progress tease shortly after boot begins
   setTimeout(runProgressTease, 3000);
+
+  // Start the glitch effect after the boot is done
+  setTimeout(scheduleGlitch, 8000);
 });
