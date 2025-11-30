@@ -290,133 +290,102 @@ kbd{
 }
 
 /* ================================================
-   BEGIN DECK//MATRON console + logo animation
+   DECK//MATRON text logo (no image assets)
    ================================================ */
 
-/* These three are your main knobs for speed */
-:root {
-  /* How long each letter takes to drop + glitch into place */
-  --deck-letter-duration: 0.75s;
-
-  /* Time between each letter starting its drop */
-  --deck-letter-stagger: 0.08s;
-
-  /* How long the underline fade lasts */
-  --deck-underline-fade-duration: 0.35s;
+.console .console-inner{
+  min-height:260px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
 }
 
-/* Keep the console height stable even when boot text is removed */
-.console .console-inner {
-  min-height: 260px;           /* Tweak this if the console feels too tall/short */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
+/* Wrapper */
+.deckmark{
+  margin-top:1rem;
+  margin-bottom:.5rem;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  pointer-events:none;
 }
 
-/* Logo wrapper sits in the flow, centred, and never spills outside */
-#deckmatron-logo {
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  pointer-events: none;
+/* Main title text */
+.deckmark-title{
+  font-size:1.45rem;
+  text-transform:uppercase;
+  letter-spacing:0.22em;
+  font-weight:600;
+  color:var(--fg);
+  text-shadow:
+    0 0 6px rgba(0,255,160,.4),
+    0 0 14px rgba(0,255,140,.24);
+  position:relative;
+  display:inline-block;
+
+  /* delayed “boot in” effect to roughly match old timing */
+  opacity:0;
+  transform:translateY(-6px);
+  animation:
+    deckmark-fade-drop 0.5s cubic-bezier(0.23,1,0.32,1) forwards 3.4s,
+    deckmark-glitch 0.26s steps(2,start) 1 4.0s;
 }
 
-.deck-logo-inner {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
+/* Make the // slightly different so you can theme it later */
+.deckmark-slashes{
+  color:var(--dim);
 }
 
-/* Base state for letters: invisible, slightly above */
-.deck-letter {
-  display: block;
-  height: auto;
-  width: auto;
-  max-height: 3.5rem; /* adjust if letters look too big/small inside the console */
-  opacity: 0;
-  transform: translateY(-40px);
+/* Underline bar */
+.deckmark-underline{
+  margin-top:0.4rem;
+  width:72%;
+  max-width:520px;
+  height:2px;
+  border-radius:999px;
+  background:linear-gradient(
+    90deg,
+    transparent 0%,
+    var(--fg) 15%,
+    var(--dim) 50%,
+    var(--fg) 85%,
+    transparent 100%
+  );
+  box-shadow:0 0 12px rgba(0,255,140,.65);
+  opacity:0;
+  transform:scaleX(0.6);
+  transform-origin:center;
+  animation:deckmark-underline-grow 0.4s ease-out forwards 4.15s;
 }
 
-/* Underline sits under the letters, also invisible at first */
-.deck-underline-wrap {
-  margin-top: 0.4rem;
-  overflow: hidden;
-}
-
-.deck-underline {
-  display: block;
-  height: auto;
-  max-width: 100%;
-  opacity: 0;
-}
-
-/* When JS adds .deck-logo-active, letters start their animations */
-#deckmatron-logo.deck-logo-active .deck-letter {
-  animation: deck-letter-drop-glitch var(--deck-letter-duration)
-             cubic-bezier(0.23, 1, 0.32, 1) forwards;
-}
-
-/* Stagger each letter by index (12 letters total) */
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(1)  { animation-delay: calc(var(--deck-letter-stagger) * 0); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(2)  { animation-delay: calc(var(--deck-letter-stagger) * 1); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(3)  { animation-delay: calc(var(--deck-letter-stagger) * 2); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(4)  { animation-delay: calc(var(--deck-letter-stagger) * 3); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(5)  { animation-delay: calc(var(--deck-letter-stagger) * 4); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(6)  { animation-delay: calc(var(--deck-letter-stagger) * 5); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(7)  { animation-delay: calc(var(--deck-letter-stagger) * 6); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(8)  { animation-delay: calc(var(--deck-letter-stagger) * 7); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(9)  { animation-delay: calc(var(--deck-letter-stagger) * 8); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(10) { animation-delay: calc(var(--deck-letter-stagger) * 9); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(11) { animation-delay: calc(var(--deck-letter-stagger) * 10); }
-#deckmatron-logo.deck-logo-active .deck-logo-inner .deck-letter:nth-child(12) { animation-delay: calc(var(--deck-letter-stagger) * 11); }
-
-/* Single animation for each letter: drop -> settle -> brief glitch -> lock */
-@keyframes deck-letter-drop-glitch {
-  0% {
-    opacity: 0;
-    transform: translateY(-40px);
+/* Title fade + drop */
+@keyframes deckmark-fade-drop{
+  0%{
+    opacity:0;
+    transform:translateY(-6px);
   }
-  40% {
-    opacity: 1;
-    transform: translateY(4px);          /* slight overshoot below baseline */
-  }
-  55% {
-    transform: translateY(0);            /* settle on baseline */
-  }
-  65% {
-    transform: translateY(-2px) translateX(1px);   /* glitch 1 */
-  }
-  75% {
-    transform: translateY(2px) translateX(-1px);   /* glitch 2 */
-  }
-  85% {
-    transform: translateY(-1px) translateX(0);     /* glitch 3 */
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) translateX(0);        /* fully locked, no more movement */
+  100%{
+    opacity:1;
+    transform:translateY(0);
   }
 }
 
-/* Underline fades in AFTER the last letter is done */
-#deckmatron-logo.deck-logo-active .deck-underline {
-  animation: deck-underline-fade var(--deck-underline-fade-duration) ease-out forwards;
-  /* letter count is 12, so (12 - 1) = 11 staggers */
-  animation-delay: calc(var(--deck-letter-duration) + var(--deck-letter-stagger) * 11);
+/* Tiny positional glitch – keeps it “machine weird” without being unreadable */
+@keyframes deckmark-glitch{
+  0%{ transform:translateX(0) }
+  35%{ transform:translateX(-1px) }
+  70%{ transform:translateX(1px) }
+  100%{ transform:translateX(0) }
 }
 
-@keyframes deck-underline-fade {
-  0% {
-    opacity: 0;
+/* Underline grow in */
+@keyframes deckmark-underline-grow{
+  0%{
+    opacity:0;
+    transform:scaleX(0.6);
   }
-  100% {
-    opacity: 1;
+  100%{
+    opacity:1;
+    transform:scaleX(1);
   }
 }
-
-/* ================================================
-   END DECK//MATRON console + logo animation
-   ================================================ */
