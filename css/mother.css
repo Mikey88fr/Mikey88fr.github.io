@@ -302,26 +302,21 @@ kbd{
 
 /* Wrapper */
 .deckmark{
-  margin-top:1rem;
-  margin-bottom:.5rem;
+  margin-top:0.25rem;      /* pull it closer to the boot text */
+  margin-bottom:0.35rem;   /* tighter, less “big hero banner” */
   display:flex;
   flex-direction:column;
   align-items:center;
   pointer-events:none;
 }
 
-/* Main title text */
 .deckmark-title{
-  font-size:1.45rem;
+  font-size:1.25rem;       /* slightly smaller so it doesn’t dominate */
   text-transform:uppercase;
-  letter-spacing:0.22em;
+  letter-spacing:0.20em;
   font-weight:600;
-  color:var(--fg);
-  text-shadow:
-    0 0 6px rgba(0,255,160,.4),
-    0 0 14px rgba(0,255,140,.24);
-  position:relative;
-  display:inline-block;
+  ...
+}
 
   /* delayed “boot in” effect to roughly match old timing */
   opacity:0;
