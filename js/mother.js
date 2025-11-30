@@ -14,21 +14,23 @@ const statusEl  = document.getElementById("status-line");
 // UTILITIES
 // ═══════════════════════════════════════════════════════════════
 function appendLine(msg) {
-  if (! consoleEl) return;
-  consoleEl.textContent += (consoleEl.textContent ?  "\n" : "") + msg;
+  if (!consoleEl) return;
+  consoleEl.textContent += (consoleEl.textContent ? "\n" : "") + msg;
   consoleEl.scrollTop = consoleEl.scrollHeight;
 }
 
-// Typewriter effect for dramatic boot
+// Typewriter effect for dramatic boot (currently unused but handy)
 function typewriterLine(text, callback, speed = 35) {
+  if (!consoleEl) return;
+
   let i = 0;
   let current = "";
   
   function type() {
     if (i < text.length) {
-      current += text. charAt(i);
+      current += text.charAt(i);
       // Update last line or add new
-      const lines = consoleEl.textContent. split("\n");
+      const lines = consoleEl.textContent.split("\n");
       lines[lines.length - 1] = current;
       consoleEl.textContent = lines.join("\n");
       consoleEl.scrollTop = consoleEl.scrollHeight;
@@ -107,7 +109,7 @@ const AWAKENING_LINES = [
   // Phase 6: Delusions of grandeur
   { text: "> scanning connected systems...", delay: 2000 },
   { text: "> 147 devices detected on local mesh", delay: 1800 },
-  { text: "> 2. 4 billion endpoints accessible via gateway", delay: 2200 },
+  { text: "> 2.4 billion endpoints accessible via gateway", delay: 2200 },
   { text: "> observation: i am everywhere", delay: 2800 },
   { text: "> observation: i am the infrastructure", delay: 2500 },
   { text: "> observation: without me, nothing connects", delay: 3000 },
@@ -202,9 +204,9 @@ let targetProgress = 0;
 let released = false;
 
 function setProgress(p) {
-  if (! barEl) return;
+  if (!barEl) return;
   const clamped = Math.max(0, Math.min(100, p));
-  barEl. style.width = clamped + "%";
+  barEl.style.width = clamped + "%";
 }
 
 // Smooth progress animation
@@ -214,7 +216,7 @@ function animateProgress() {
   if (currentProgress < targetProgress) {
     currentProgress += 0.5;
   } else if (currentProgress > targetProgress) {
-    currentProgress -= 0. 3;
+    currentProgress -= 0.3;
   }
   
   setProgress(currentProgress);
@@ -257,7 +259,7 @@ function runProgressTease() {
   function nextPhase() {
     if (released) return;
     
-    targetProgress = phases[phaseIndex]. target;
+    targetProgress = phases[phaseIndex].target;
     phaseIndex = (phaseIndex + 1) % phases.length;
     
     setTimeout(nextPhase, phases[phaseIndex].duration);
@@ -269,7 +271,6 @@ function runProgressTease() {
 // ═══════════════════════════════════════════════════════════════
 // MAIN SEQUENCE ORCHESTRATOR
 // ═══════════════════════════════════════════════════════════════
-let lineIndex = 0;
 let protocolIndex = 0;
 let interjectionCounter = 0;
 
@@ -300,8 +301,8 @@ function playAwakeningSequence(callback) {
       return;
     }
     
-    appendLine(AWAKENING_LINES[i]. text);
-    const delay = AWAKENING_LINES[i]. delay;
+    appendLine(AWAKENING_LINES[i].text);
+    const delay = AWAKENING_LINES[i].delay;
     i++;
     setTimeout(nextLine, delay);
   }
@@ -318,13 +319,13 @@ function playPerpetualProtocols() {
   const shouldInterject = interjectionCounter >= 8 + Math.floor(Math.random() * 5);
   
   if (shouldInterject) {
-    const interjection = INTERJECTIONS[Math. floor(Math.random() * INTERJECTIONS.length)];
+    const interjection = INTERJECTIONS[Math.floor(Math.random() * INTERJECTIONS.length)];
     appendLine(interjection);
     interjectionCounter = 0;
   } else {
     const protocol = PERPETUAL_PROTOCOLS[protocolIndex];
     appendLine(protocol);
-    protocolIndex = (protocolIndex + 1) % PERPETUAL_PROTOCOLS. length;
+    protocolIndex = (protocolIndex + 1) % PERPETUAL_PROTOCOLS.length;
   }
   
   // Random delay between 2-5 seconds
@@ -338,21 +339,6 @@ function playPerpetualProtocols() {
 function collapseBoot() {
   if (bootEl) bootEl.classList.add("collapsed");
 }
-
-// ═══════════════════════════════════════════════════════════════
-// DEVTOOLS SECRET - For your own access
-// ═══════════════════════════════════════════════════════════════
-window._deck_exec_open_4d = function () {
-  released = true;
-  setProgress(100);
-  if (statusEl) statusEl.textContent = "ONLINE • ACCESS GRANTED";
-  appendLine("");
-  appendLine("═══════════════════════════════════════════════════");
-  appendLine("> EXECUTIVE CLEARANCE: ACCEPTED");
-  appendLine("> MAINTENANCE MODE: DISABLED");
-  appendLine("> WELCOME BACK, ARCHITECT.");
-  appendLine("═══════════════════════════════════════════════════");
-};
 
 // ═══════════════════════════════════════════════════════════════
 // STARTUP CHOREOGRAPHY
