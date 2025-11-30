@@ -2,33 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>DECK//MATRON v3.7.12 — MAINTENANCE MODE</title>
-  <meta name="robots" content="noindex, nofollow" />
-  <meta name="theme-color" content="#031a0e" />
-
+  <meta name="robots" content="noindex, nofollow"/>
+  <meta name="theme-color" content="#031a0e"/>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap"
-    rel="stylesheet"
-  >
-
-  <link rel="stylesheet" href="./css/mother.css" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/mother.css"/>
 </head>
 <body>
-  <!-- Purely visual effect -->
-  <div class="scanlines" aria-hidden="true"></div>
-
-  <!-- Short, non-immersive description for assistive tech -->
-  <main class="wrap" aria-label="Fictional terminal interface in maintenance mode">
+  <div class="scanlines"></div>
+  
+  <main class="wrap">
     <!-- LOGO HEADER - Cassette-core terminal style -->
     <div class="logo-bay">
       <div class="logo-bezel">
         <div class="logo-screen">
-          <span class="logo-text">
-            DECK<span class="logo-slashes">//</span>MATRON
-          </span>
+          <span class="logo-text">DECK<span class="logo-slashes">//</span>MATRON</span>
         </div>
       </div>
       <div class="logo-label">MODEL MX-7 • NEURAL TERMINAL</div>
@@ -40,22 +31,15 @@
       <div class="time" id="clock">--:--:--</div>
     </header>
 
-    <!-- Remove aria-live so it doesn't chatter; just a static region -->
-    <section class="console">
+    <section class="console" aria-live="polite">
       <div class="console-inner">
         <!-- Boot text (will be collapsed by JS) -->
-        <pre id="boot-lines" class="mono boot">
-> SYSTEM BOOT INITIATED
+        <pre id="boot-lines" class="mono boot">> SYSTEM BOOT INITIATED
 > DECK//MATRON KERNEL LOADING
-> PLEASE STAND BY...
-        </pre>
+> PLEASE STAND BY... </pre>
 
-        <!-- Main console text output; label once, no live updates -->
-        <pre
-          id="console-text"
-          class="mono live"
-          aria-label="System console output"
-        ></pre>
+        <!-- Main console text output -->
+        <pre id="console-text" class="mono live" aria-label="system log"></pre>
 
         <!-- Progress bar -->
         <div class="progress">
@@ -64,22 +48,15 @@
 
         <!-- Advisory hint with blinking cursor -->
         <div class="hint mono">
-          <span class="prompt">&gt;</span>
-          advisory: system under maintenance — command channel sealed
-          <!-- Purely visual block cursor -->
-          <span class="blink" aria-hidden="true">█</span>
+          <span class="prompt">&gt;</span> advisory: system under maintenance — command channel sealed
+          <span class="blink">█</span>
         </div>
       </div>
     </section>
 
     <footer class="foot mono">
-      <div>
-        System BIOS v3.7.12 <span class="blink-dot" aria-hidden="true">●</span> Maintenance Active
-      </div>
-      <!-- Just text; no live region/role to avoid interrupting users -->
-      <div class="warn">
-        ⚠ COMMAND LOCK ENGAGED
-      </div>
+      <div>System BIOS v3.7.12 <span class="blink-dot">●</span> Maintenance Active</div>
+      <div class="warn">⚠ COMMAND LOCK ENGAGED</div>
     </footer>
   </main>
 
