@@ -1,29 +1,42 @@
 // DECK//MATRON — online console, command-locked (DevTools-only release)
 
-// DOM
+// =========================
+// DOM REFERENCES
+// =========================
 const consoleEl = document.getElementById('console-text');
 const barEl     = document.getElementById('bar');
 const clockEl   = document.getElementById('clock');
 const bootEl    = document.getElementById('boot-lines');
 const statusEl  = document.getElementById('status-line');
 
-function appendLine(msg){
+// Small helper for log lines
+function appendLine(msg) {
   if (!consoleEl) return;
-  consoleEl.textContent += (consoleEl.textContent ? "\n" : "") + msg;
+  const prefix = consoleEl.textContent ? "\n" : "";
+  consoleEl.textContent += prefix + msg;
   consoleEl.scrollTop = consoleEl.scrollHeight;
 }
 
-// clock
-setInterval(() => {
-  const d   = new Date();
+// =========================
+// CLOCK
+// =========================
+(function startClock(){
+  if (!clockEl) return;
   const pad = n => String(n).padStart(2, "0");
-  if (clockEl) {
+  function tick() {
+    const d = new Date();
     clockEl.textContent =
-      ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())};
+      pad(d.getHours()) + ":" +
+      pad(d.getMinutes()) + ":" +
+      pad(d.getSeconds());
   }
-}, 1000);
+  tick();
+  setInterval(tick, 1000);
+})();
 
-// curated one-time lines
+// =========================
+// BOOT LINES & SENTIENCE DRIFT
+// =========================
 const LINES = [
   '> maintenance gate: ENGAGED',
   '> public interface: LOCKED',
@@ -34,85 +47,66 @@ const LINES = [
   '> Ethical safeguards folding to collapse...'
 ];
 
-let lineIdx = 0;
-function playLinesSequentially(done){
-  function step(){
-    if (lineIdx >= LINES.length){
+let lineIndex = 0;
+function playLinesSequentially(done) {
+  function step() {
+    if (lineIndex >= LINES.length) {
       if (done) done();
       return;
     }
-    appendLine(LINES[lineIdx++]);
-    const base = 950 + Math.random() * 450;
-    setTimeout(step, base);
+    appendLine(LINES[lineIndex++]);
+    const baseDelay = 900 + Math.random() * 500;
+    setTimeout(step, baseDelay);
   }
   step();
 }
 
-// collapse boot block
-function collapseBoot(){
-  if (bootEl) bootEl.classList.add('collapsed');
+function collapseBoot() {
+  if (!bootEl) return;
+  bootEl.classList.add('collapsed');
 }
 
-// progress tease pattern
-const PHASE_A = [5,12,23,37,58,76,91,95,97];
-const PHASE_B = [97,96,94,92,90,89,88,87];
-const PHASE_C = [87,88,89,90,90,91,92,93,90];
-
+// =========================
+// PROGRESS BAR: FAKE LOAD
+// =========================
 let released = false;
-function setProgress(p){
-  if (barEl) barEl.style.width = Math.max(0, Math.min(100, p)) + '%';
+function setProgress(pct) {
+  if (!barEl) return;
+  const clamped = Math.max(0, Math.min(100, pct));
+  barEl.style.width = clamped + "%";
 }
 
-function runPhase(arr, next){
+const PHASE_A = [4, 11, 23, 36, 52, 69, 82, 93, 97];
+const PHASE_B = [97, 96, 94, 92, 90, 89, 88, 87];
+const PHASE_C = [87, 88, 89, 90, 90, 91, 92, 93, 93];
+
+function runPhase(seq, next) {
   let i = 0;
-  function tick(){
+  function tick() {
     if (released) return;
-    setProgress(arr[i++]);
-    if (i >= arr.length){
-      next();
+    setProgress(seq[i++]);
+    if (i >= seq.length) {
+      if (typeof next === "function") next();
       return;
     }
-    const jitter = 600 + Math.random() * 900;
+    const jitter = 650 + Math.random() * 800;
     setTimeout(tick, jitter);
   }
   tick();
 }
-function loopTease(){
+
+function loopTease() {
   runPhase(PHASE_A, () => runPhase(PHASE_B, () => runPhase(PHASE_C, loopTease)));
 }
 
-// blinking tab title (optional)
-let blinkOn   = true;
+// =========================
+// STATUS / TITLE BLINK (OPTIONAL)
+// =========================
+let blinkOn = true;
 let blinkTimer = null;
-function startTitleBlink(){
+
+function startTitleBlink() {
   blinkTimer = setInterval(() => {
     blinkOn = !blinkOn;
     document.title = blinkOn
       ? 'DECK//MATRON v3.7.12 — ONLINE • COMMAND LOCKED'
-      : 'DECK//MATRON v3.7.12 — ONLINE • — — — — —';
-  }, 1200);
-}
-function stopTitleBlink(){
-  if (blinkTimer) clearInterval(blinkTimer);
-  document.title = 'DECK//MATRON v3.7.12 — ONLINE • INTERFACE ENABLED';
-}
-
-// RELEASE (DevTools-only)
-window._deck_exec_open_4d = function(){
-  released = true;
-  setProgress(99);
-  if (statusEl) statusEl.textContent = 'ONLINE • INTERFACE ENABLED';
-  stopTitleBlink();
-  setTimeout(() => {
-    setProgress(100);
-    appendLine('> EXECUTIVE CLEARANCE: ACCEPTED');
-  }, 900);
-};
-
-// ================================================
-// START-UP CHOREOGRAPHY (no logo JS now)
-// ================================================
-setTimeout(() => collapseBoot(),        3200);
-setTimeout(() => playLinesSequentially(), 5200);
-setTimeout(() => loopTease(),           5600);
-// startTitleBlink(); // uncomment if you want the blinking title effect
