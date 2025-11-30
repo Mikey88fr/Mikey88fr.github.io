@@ -57,23 +57,26 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;  /* anchor content towards top on desktop */
+  justify-content: flex-start;
   align-items: center;
   padding: 2rem;
   gap: 1rem;
+  max-width: 1100px;       /* NEW */
+  margin: 0 auto;          /* keep wrap centered in viewport */
 }
 
 /* ═══════════════════════════════════════════════════════════════
    CASSETTE-CORE LOGO BAY
    ═══════════════════════════════════════════════════════════════ */
 .logo-bay {
+  width: 100%;
+  max-width: 980px;              /* match console / hud / foot */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center;           /* center logo inside that 980px frame */
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
-
 .logo-bezel {
   background: linear-gradient(145deg, #1a1a1a 0%, #0a0a0a 50%, #151515 100%);
   border: 2px solid #333;
