@@ -2,25 +2,28 @@
 
 // DOM
 const consoleEl = document.getElementById('console-text');
-const barEl = document.getElementById('bar');
-const clockEl = document.getElementById('clock');
-const bootEl = document.getElementById('boot-lines');
-const statusEl = document.getElementById('status-line');
-const logoEl = document.getElementById('deckmatron-logo');
+const barEl     = document.getElementById('bar');
+const clockEl   = document.getElementById('clock');
+const bootEl    = document.getElementById('boot-lines');
+const statusEl  = document.getElementById('status-line');
 
 function appendLine(msg){
-  if(!consoleEl) return;
+  if (!consoleEl) return;
   consoleEl.textContent += (consoleEl.textContent ? "\n" : "") + msg;
   consoleEl.scrollTop = consoleEl.scrollHeight;
 }
 
 // clock
-setInterval(()=>{
-  const d=new Date(), pad=n=>String(n).padStart(2,'0');
-  if(clockEl) clockEl.textContent = `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+setInterval(() => {
+  const d   = new Date();
+  const pad = n => String(n).padStart(2, "0");
+  if (clockEl) {
+    clockEl.textContent =
+      ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())};
+  }
 }, 1000);
 
-// curated one-time lines — SURGICAL: removed red-dot entries
+// curated one-time lines
 const LINES = [
   '> maintenance gate: ENGAGED',
   '> public interface: LOCKED',
@@ -34,20 +37,20 @@ const LINES = [
 let lineIdx = 0;
 function playLinesSequentially(done){
   function step(){
-    if(lineIdx >= LINES.length){ if(done) done(); return; }
+    if (lineIdx >= LINES.length){
+      if (done) done();
+      return;
+    }
     appendLine(LINES[lineIdx++]);
-    const base = 950 + Math.random()*450;
+    const base = 950 + Math.random() * 450;
     setTimeout(step, base);
   }
   step();
 }
 
 // collapse boot block
-function collapseBoot(){ if(bootEl) bootEl.classList.add('collapsed'); }
-
-// trigger logo animation
-function triggerLogoAnimation(){
-  if(logoEl) logoEl.classList.add('deck-logo-active');
+function collapseBoot(){
+  if (bootEl) bootEl.classList.add('collapsed');
 }
 
 // progress tease pattern
@@ -56,25 +59,33 @@ const PHASE_B = [97,96,94,92,90,89,88,87];
 const PHASE_C = [87,88,89,90,90,91,92,93,90];
 
 let released = false;
-function setProgress(p){ if(barEl) barEl.style.width = Math.max(0,Math.min(100,p)) + '%'; }
+function setProgress(p){
+  if (barEl) barEl.style.width = Math.max(0, Math.min(100, p)) + '%';
+}
 
 function runPhase(arr, next){
-  let i=0;
+  let i = 0;
   function tick(){
-    if(released) return;
+    if (released) return;
     setProgress(arr[i++]);
-    if(i>=arr.length){ next(); return; }
-    const jitter = 600 + Math.random()*900;
+    if (i >= arr.length){
+      next();
+      return;
+    }
+    const jitter = 600 + Math.random() * 900;
     setTimeout(tick, jitter);
   }
   tick();
 }
-function loopTease(){ runPhase(PHASE_A, ()=> runPhase(PHASE_B, ()=> runPhase(PHASE_C, loopTease))); }
+function loopTease(){
+  runPhase(PHASE_A, () => runPhase(PHASE_B, () => runPhase(PHASE_C, loopTease)));
+}
 
-// blinking tab title
-let blinkOn = true, blinkTimer = null;
+// blinking tab title (optional)
+let blinkOn   = true;
+let blinkTimer = null;
 function startTitleBlink(){
-  blinkTimer = setInterval(()=>{
+  blinkTimer = setInterval(() => {
     blinkOn = !blinkOn;
     document.title = blinkOn
       ? 'DECK//MATRON v3.7.12 — ONLINE • COMMAND LOCKED'
@@ -82,7 +93,7 @@ function startTitleBlink(){
   }, 1200);
 }
 function stopTitleBlink(){
-  if(blinkTimer) clearInterval(blinkTimer);
+  if (blinkTimer) clearInterval(blinkTimer);
   document.title = 'DECK//MATRON v3.7.12 — ONLINE • INTERFACE ENABLED';
 }
 
@@ -90,19 +101,18 @@ function stopTitleBlink(){
 window._deck_exec_open_4d = function(){
   released = true;
   setProgress(99);
-  if(statusEl) statusEl.textContent = 'ONLINE • INTERFACE ENABLED';
+  if (statusEl) statusEl.textContent = 'ONLINE • INTERFACE ENABLED';
   stopTitleBlink();
-  setTimeout(()=>{
+  setTimeout(() => {
     setProgress(100);
     appendLine('> EXECUTIVE CLEARANCE: ACCEPTED');
   }, 900);
 };
 
 // ================================================
-// START-UP CHOREOGRAPHY WITH LOGO ANIMATION
+// START-UP CHOREOGRAPHY (no logo JS now)
 // ================================================
-setTimeout(()=> collapseBoot(), 3200);
-setTimeout(()=> triggerLogoAnimation(), 3400);  // <-- NEW: trigger logo 200ms after boot collapse
-setTimeout(()=> playLinesSequentially(), 5200);  // <-- ADJUSTED: delayed to let logo finish (~1.8s animation)
-setTimeout(()=> loopTease(), 5600);              // <-- ADJUSTED: matches new timing
+setTimeout(() => collapseBoot(),        3200);
+setTimeout(() => playLinesSequentially(), 5200);
+setTimeout(() => loopTease(),           5600);
 // startTitleBlink(); // uncomment if you want the blinking title effect
