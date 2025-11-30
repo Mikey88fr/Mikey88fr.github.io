@@ -347,20 +347,22 @@ function scheduleGlitch() {
   const tear = document.getElementById("static-tear");
   if (!tear) return;
 
-  // Remove class to reset animation
+  // Reset animation
   tear.classList.remove("glitching");
-  
-  // Force reflow
-  void tear.offsetWidth;
-
-  // Add class to start animation
+  void tear.offsetWidth; // force reflow
   tear.classList.add("glitching");
 
-  // Randomize next glitch (between 5s and 15s)
-  // Sometimes very fast (400ms) to simulate "breaking"
-  const isBurst = Math.random() > 0.8;
-  const delay = isBurst ? 400 : (Math.random() * 10000 + 5000);
-  
+  // Glitch every 8–18 seconds, with a rare "double-tap"
+  const roll = Math.random();
+  let delay;
+
+  if (roll > 0.92) {
+    // occasional quick follow-up ripple (1–2 seconds later)
+    delay = 1000 + Math.random() * 1000;
+  } else {
+    delay = 8000 + Math.random() * 10000; // 8–18 seconds
+  }
+
   setTimeout(scheduleGlitch, delay);
 }
 
