@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Phase 1: Boot sequence (immediate)
   setTimeout(() => {
     playBootSequence(() => {
-      // Phase 2: Collapse boot lines, show logo
+      // Phase 2: Collapse boot lines
       setTimeout(collapseBoot, 800);
       
       // Phase 3: Begin awakening after logo appears
