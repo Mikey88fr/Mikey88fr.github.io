@@ -23,18 +23,41 @@ body {
   letter-spacing: .02em;
 }
 
+/* Optional: if you still use this somewhere */
 .hidden {
   display: none;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   GLOBAL BACKGROUND SCANLINES (full screen)
+   ═══════════════════════════════════════════════════════════════ */
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255,255,255,0.02) 0px,
+      rgba(255,255,255,0.02) 1px,
+      rgba(0,0,0,0.02) 2px,
+      rgba(0,0,0,0.02) 3px
+    );
+  mix-blend-mode: soft-light;
+  opacity: 0.25;
+  z-index: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    LAYOUT WRAPPER
    ═══════════════════════════════════════════════════════════════ */
 .wrap {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;  /* anchor content towards top on desktop */
   align-items: center;
   padding: 2rem;
   gap: 1rem;
@@ -47,6 +70,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 0.5rem;
   margin-bottom: 0.5rem;
 }
 
@@ -430,6 +454,7 @@ body {
   gap: 1rem;
   color: var(--dim);
   font-size: 0.75rem;
+  margin-top: 0.5rem;
 }
 
 .blink-dot {
@@ -484,7 +509,7 @@ body {
     opacity: 1;
   }
   42% {
-    opacity .97;
+    opacity: .97;
   }
   60% {
     opacity: 1;
