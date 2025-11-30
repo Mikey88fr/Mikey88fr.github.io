@@ -18,7 +18,8 @@ setInterval(() => {
   const d   = new Date();
   const pad = n => String(n).padStart(2, "0");
   if (clockEl) {
-    clockEl.textContent = ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())};
+    clockEl.textContent =
+      ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())};
   }
 }, 1000);
 
