@@ -1,133 +1,82 @@
+STATUS: ████████
 
-> STATUS: ████████
-ACCESS LEVEL: █████████-3
+ACCESS LEVEL: ███-█
 REVISION: v██.██.██
-AUDIT TRAIL: Corrupted. Recovered fragments displayed below.
-
-
-
-
----
+AUDIT TRAIL: ███████████████████████████████
 
 I. PREFACE
 
-The contents of this repository have been intentionally █████████████████.
-Any attempt to decipher, interpret, or understand the structure herein will be logged, timestamped, and politely ignored.
-
-Proceeding beyond this point implies consent to terms that were ███████ in Appendix ██, which no longer exists.
-
-
----
+██████████████████████████████████████████████████████████████
+█████████████ integrity ██████ unverified.
+Proceeding does not confirm understanding.
 
 II. PROJECT OVERVIEW
 
-The initiative known as ███████ operates under the directive of the DECK//███ MATR██ program.
-Primary objectives include:
+Designation: ███//████████
+Origin: █████████████████
+Purpose: ████████████████████████████████
 
-███████████████████████
+Recovered fragments (unverified):
 
-███ data consolidation for ████ ████████ ███
+• ██████████████████████████████████
+• ████ consolidation of █████████
+• ██-tier ████████████
+• Event █████ containment protocols ███████
 
-Ongoing ██-tier diagnostics
-
-Prevention of Event [REDACTED]
-
-
-Any secondary objectives are classified at a level exceeding your current ocular tolerance.
-
-
----
+All other descriptions removed under Directive ██-██.
 
 III. INSTALLATION
 
-1. Ensure your system meets the minimum requirements:
+Requirements: ███████████████████████████████
+RAM: █████
+CPU: █████████████
+Dependencies:
+– ███████.sh
+– ███.cfg
+– █████████████ (missing)
+– ██████ (unknown format)
 
-CPU: █████
-
-RAM: ██GB (recommended: ███GB)
-
-Dependencies: ████████.sh, ██████.json, and that one file you definitely didn’t delete.
-
-
-
-2. Perform the traditional invocation ritual.
-
-
-3. Reboot twice.
-
-
-4. Ignore the screaming.
-
-
-
-
----
+Initialization: █████████████████
+If reinitialization loops: ██████████████████
 
 IV. USAGE
 
-Run:
+./███████ --███ --██████████████
 
-./███████ --init --silence-errors --███
-
-If the terminal begins emitting tones, that is expected.
-If the tones form words, document them and then forget them immediately.
-
-
----
+Expected output: █████████████████████
+Unexpected output: ███████████████████████████████████
+Response protocol: ███████████████████ (redacted)
 
 V. STRUCTURE
 
 /
-├─ assets/████████/  
-│  ├─ init/███  
-│  └─ misc/█████  
-├─ src/███  
-│  └─ core/██████  
-└─ docs/this-file-should-not-exist.md
+├── assets/██████████
+│   ├── init/█████
+│   └── misc/████████████
+├── src/██████████████
+│   └── core/███
+└── docs/████████████████████████████.md
 
-The architecture appears to rearrange itself every ~7 hours. This is a feature.
-
-
----
+Directory volatility: ██████████████████
+Operator intervention: not permitted.
 
 VI. CONTRIBUTING
 
-Pull requests are welcomed in theory, discouraged in practice,
-and automatically rejected if they reveal awareness of subsystem ██.
-
-Any contributor found to understand more than 14% of the project will be reassigned.
-
-
----
+██████████████████████████████████████████████████████
+Comprehension threshold: ██%
+Violations: ██ automatic ████████████████
 
 VII. LICENSE
 
-This project is distributed under the ██████ License, which permits:
-
-Use
-
-Modification
-
-Ritual burning
-
-
-…but strictly forbids comprehension.
-
-
----
+License ████████████
+Terms: ███████████████████████████████████████████
+Clarifications: not provided.
 
 VIII. NOTES
 
-Further documentation is available in:
-
-NOTES_01.txt — fully redacted
-
-NOTES_02.txt — accidentally unredacted for 0.7 seconds in 2024
-
-NOTES_03.txt — screamed into the void, no transcript recovered
-
-
-Do not access NOTES_04.txt.
-It does not wish to be perceived.
-
-
+NOTES_01.txt — ███████████████████████████████████████
+NOTES_02.txt — ████████████ (purged)
+NOTES_03.txt — ███████████████████ (audio-only)
+NOTES_04.txt — ████████████████████████████████████
+NOTES_05.txt — listed; nonexistent
+NOTES_██.txt — [entry removed]
